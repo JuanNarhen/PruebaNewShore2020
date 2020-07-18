@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Models
+namespace WebApplication3.Models.ViewModels
 {
-    public interface IPerson
+    public class ReservationViewModel
     {
-        public string Name { get; set; }
+        
     }
 }
