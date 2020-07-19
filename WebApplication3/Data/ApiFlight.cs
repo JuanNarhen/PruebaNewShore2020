@@ -10,7 +10,7 @@ using System.Web;
 
 namespace WebApplication3.Data
 {
-    public class ApiFlight
+    public class ApiFlight:IApi
     {
         public dynamic Post(string url, string json, string autorizacion = null)
         {

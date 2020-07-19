@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,29 +16,44 @@ namespace WebApplication3.Services
     public class FlightsService
     {
 
-        private List<Flight> GetFlights(dynamic JsonResult)
+        private string _apiConnectString;
+
+        public FlightsService (string apiConn)
+        {
+            this._apiConnectString = apiConn;
+        }
+
+        private string PrepareJson (SearchFlightsViewModel filters, FiltersJsonObject queryApiJson)
+        {
+            queryApiJson.Destination = filters.Destination;
+            queryApiJson.Origin = filters.Origin;
+            queryApiJson.From = filters.From.ToString("yyyy-MM-dd");
+
+            string jsonFilters = JsonConvert.SerializeObject(queryApiJson);
+
+            return jsonFilters;
+        }
+
+        private List<Flight> GetFlights (dynamic jsonResult)
         {
             List<Flight> flights = new List<Flight>();
+            Object[] jsonArray = JsonConvert.DeserializeObject<Object[]>(jsonResult);
 
-            foreach (var i in JsonResult)
+            foreach (var i in jsonArray)
             {
-                Flight f = new Flight();
-                f.DepartureStation = i.DepartureStation.ToString();
-                f.ArrivalStation = i.ArrivalStation.ToString();
-                f.Currency = i.Currency.ToString();
-                f.Price = float.Parse(i.Price.ToString());
-                f.DepartureDate = Convert.ToDateTime(i.DepartureDate);
-
+                Flight f = JObject.Parse(i.ToString()).ToObject<Flight>();
                 flights.Add(f);
             }
 
             return flights;
         }
 
-        public List<Flight> SearchFlights (SearchFlightsViewModel filters, ApiFlight apiDb)
+        public List<Flight> SearchFlights (SearchFlightsViewModel filters, 
+            FiltersJsonObject queryApiJson, 
+            IApi apiDb)
         {
-            var jsonFilters = JsonConvert.SerializeObject(filters);
-            dynamic result = apiDb.Post("http://testapi.vivaair.com/otatest/api/values", jsonFilters);
+            var jsonFilters = PrepareJson(filters, queryApiJson);
+            dynamic result = apiDb.Post(this._apiConnectString, jsonFilters);
 
             if(result != null)
             {
@@ -49,5 +66,6 @@ namespace WebApplication3.Services
             }
 
         }
+
     }
 }

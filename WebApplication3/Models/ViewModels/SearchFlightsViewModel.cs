@@ -11,6 +11,7 @@ namespace WebApplication3.Models.ViewModels
         public string Destination { get; set; }
         public string Origin { get; set; }
         public DateTime From { get; set; }
+        public List<Flight> Flights { get; set; }
 
     }
 }
