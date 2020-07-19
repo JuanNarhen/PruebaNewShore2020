@@ -10,6 +10,5 @@ namespace WebApplication3.Models.ViewModels
     {
         public Contact BookingContact { get; set; }
         public List<Passenger> RegistredPassengers { get; set; }
-        public 
     }
 }
