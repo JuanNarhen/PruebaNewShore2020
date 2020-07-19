@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication3.Data;
 using WebApplication3.Models;
 using WebApplication3.Models.Areas.BookingFlow;
 using WebApplication3.Models.ViewModels;
@@ -31,16 +33,21 @@ namespace WebApplication3.Services
             return flights;
         }
 
-        public void SearchFlights (SearchFlightsViewModel filters)
+        public List<Flight> SearchFlights (SearchFlightsViewModel filters, ApiFlight apiDb)
         {
-            bool byDeparture = String.IsNullOrEmpty(filters.Departure);
-            bool byArrivation = String.IsNullOrEmpty(filters.Arrivation);
-            bool byDate = filters.FlightDateTime == null;
+            var jsonFilters = JsonConvert.SerializeObject(filters);
+            dynamic result = apiDb.Post("http://testapi.vivaair.com/otatest/api/values", jsonFilters);
 
-            if (byDeparture)
+            if(result != null)
             {
-                
+                List<Flight> flights = GetFlights(result);
+                return flights;
             }
+            else
+            {
+                throw new Exception("There is an error with the query to API.\nIt returns a null value");
+            }
+
         }
     }
 }

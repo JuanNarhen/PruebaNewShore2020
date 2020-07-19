@@ -8,10 +8,9 @@ namespace WebApplication3.Models.ViewModels
 {
     public class SearchFlightsViewModel
     {
-        public string Departure { get; set; }
-        public string Arrivation { get; set; }
-        public DateTime FlightDateTime { get; set; }
-        public List<Flight> AvaibleFlights { get; set; }
+        public string Destination { get; set; }
+        public string Origin { get; set; }
+        public DateTime From { get; set; }
 
     }
 }
