@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Data;
+using WebApplication3.Models.Areas.BookingFlow;
 using WebApplication3.Models.ViewModels;
 using WebApplication3.Services;
 
@@ -42,10 +43,18 @@ namespace WebApplication3.Controllers
             string arrival, 
             DateTime departureDate)
         {
-            return View();
+            ReservationViewModel bookingInfo = new ReservationViewModel
+            {
+                SelectedArrival = arrival,
+                SelectedDeparture = departure,
+                SeletedDate = departureDate,
+                RegistredPassengers = new List<Passenger>()
+            };
+
+            return View(bookingInfo);
         }
 
-        
 
+       
     }
 }

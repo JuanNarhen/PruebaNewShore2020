@@ -1,0 +1,98 @@
+﻿@model WebApplication3.Models.ViewModels.ReservationViewModel
+@{
+    ViewData["Title"] = "ContinueReservation";
+
+    var viewPassengers = new List<WebApplication3.Models.Areas.BookingFlow.Passenger>();
+}
+
+<h1>CONTINUAR CON TU RESERVA</h1>
+
+<br />
+<hr />
+<br />
+
+<div class="row">
+    <form asp-action="ContinueReservation">
+        <div class="form-group row just">
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Nombre</label>
+                <div>
+                    <input type="text" asp-for="BookingContact.Name" required />
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Correo Electr&oacute;nico</label>
+                <div>
+                    <input type="email" asp-for="BookingContact.Email" required />
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Tel&eacute;fono</label>
+                <div>
+                    <input type="number" asp-for="BookingContact.Phone" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Finalizar Reservaci&oacute;n" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+
+        <div class="table table-borderless">
+            <table>
+                <thead>
+                    <tr>
+                        <td><label>Nombre</label></td>
+                        <td><label>Fecha Nacimiento</label></td>
+                    </tr>
+                </thead>
+                <tbody id="t_body">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-1 form-group">
+            <input type="button" value="A&ntilde;adir pasajero" onclick="addNewElementToTable('t_body')" class="btn btn-primary btn-sm" />
+        </div>
+        <div class="col-md-1 form-group">
+            <input type="submit" value="Eliminar Pasajero" onclick="deleteRowFromTable('t_body')" class="btn btn-primary btn-sm" />
+        </div>
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+
+    function addNewElementToTable(tBodyId) {
+        var table = document.getElementById(tBodyId);
+        var row = document.createElement("tr");
+        var cellName = document.createElement("td");
+        var cellBirth = document.createElement("td");
+        var inName = document.createElement("INPUT");
+        inName.setAttribute("type", "text");
+        var inBirth = document.createElement("INPUT");
+        inBirth.setAttribute("type", "date");
+
+        cellName.appendChild(inName);
+        cellBirth.appendChild(inBirth);
+        row.appendChild(cellName);
+        row.appendChild(cellBirth);
+        table.appendChild(row);
+
+
+
+    }
+
+    function deleteRowFromTable(tBodyId) {
+        var table = document.getElementById(tBodyId);
+        var rowCount = table.rows.length;
+
+        if (rowCount <= 0)
+            alert('No se pueden eliminar más elementos.');
+        else
+            table.deleteRow(rowCount - 1);
+    }
+
+</script>
+
+
