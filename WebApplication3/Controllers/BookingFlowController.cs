@@ -54,7 +54,20 @@ namespace WebApplication3.Controllers
             return View(bookingInfo);
         }
 
+        [HttpGet]
+        public PartialViewResult AddPassenger(string name, DateTime date, List<Passenger> passengers)
+        {
+            passengers.Add(new Passenger { Name = name, BirthDate = date });
+            return PartialView("_SeePassenger", passengers);
+        }
 
+        [HttpGet]
+        public PartialViewResult DelPassenger(List<Passenger> passengers)
+        {
+            int lastPassenger = passengers.Count() - 1;
+            passengers.RemoveAt(lastPassenger);
+            return PartialView("_SeePassenger", passengers);
+        }
        
     }
 }

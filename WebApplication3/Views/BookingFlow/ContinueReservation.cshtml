@@ -36,62 +36,64 @@
                 <input type="submit" value="Finalizar Reservaci&oacute;n" class="btn btn-primary btn-sm" />
             </div>
         </div>
-
-        <div class="table table-borderless">
-            <table>
-                <thead>
-                    <tr>
-                        <td><label>Nombre</label></td>
-                        <td><label>Fecha Nacimiento</label></td>
-                    </tr>
-                </thead>
-                <tbody id="t_body">
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-md-1 form-group">
-            <input type="button" value="A&ntilde;adir pasajero" onclick="addNewElementToTable('t_body')" class="btn btn-primary btn-sm" />
-        </div>
-        <div class="col-md-1 form-group">
-            <input type="submit" value="Eliminar Pasajero" onclick="deleteRowFromTable('t_body')" class="btn btn-primary btn-sm" />
-        </div>
-
     </form>
 </div>
 
 
+<div class="row">
+    <form id="formPassenger">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="txtName"/>
+        </div>
+        <div class="form-group">
+            <label>Fecha de Nacimiento</label>
+            <input type="date" id="datBirthDate"/>
+        </div>
+        <div class="col-md-1 form-group">
+            <input type="button" value="A&ntilde;adir pasajero" id="btnAdd" class="btn btn-primary btn-sm" />
+        </div>
+        <div class="col-md-1 form-group">
+            <input type="submit" value="Eliminar Pasajero" id="btnDel" class="btn btn-primary btn-sm" />
+        </div>
+    </form>
+</div>
+
+<div >
+
+</div>
+<div id="result">
+
+</div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
 
-    function addNewElementToTable(tBodyId) {
-        var table = document.getElementById(tBodyId);
-        var row = document.createElement("tr");
-        var cellName = document.createElement("td");
-        var cellBirth = document.createElement("td");
-        var inName = document.createElement("INPUT");
-        inName.setAttribute("type", "text");
-        var inBirth = document.createElement("INPUT");
-        inBirth.setAttribute("type", "date");
+    $(function () {
+        $("#btnAdd").click(function (){
 
-        cellName.appendChild(inName);
-        cellBirth.appendChild(inBirth);
-        row.appendChild(cellName);
-        row.appendChild(cellBirth);
-        table.appendChild(row);
+            var url = "@Url.Action("AddPassenger", "BookingFlow")";
+            var name = $("#txtName").val();
+            var date = $("#datBirthDate").val();
+            var data = { name: name, date: date, passengers: "@Model.RegistredPassengers" };
 
+            $.get(url, data).done(function (data) {
+                $("#result").append(data);
+            });
+        });
 
+        $("#btnDel").click(function (){
 
-    }
-
-    function deleteRowFromTable(tBodyId) {
-        var table = document.getElementById(tBodyId);
-        var rowCount = table.rows.length;
-
-        if (rowCount <= 0)
-            alert('No se pueden eliminar más elementos.');
-        else
-            table.deleteRow(rowCount - 1);
-    }
+            var url = "@Url.Action("DelPassenger", "BookingFlow")";
+            var data = { passengers : "@Model.RegistredPassengers" };
+            $.get(url, data).done(function (data) {
+                $("#passengersList").append(data)
+            });
+        });
+    });
 
 </script>
 
