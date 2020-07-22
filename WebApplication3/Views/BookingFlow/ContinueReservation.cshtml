@@ -1,8 +1,6 @@
 ﻿@model WebApplication3.Models.ViewModels.ReservationViewModel
 @{
     ViewData["Title"] = "ContinueReservation";
-
-    var viewPassengers = new List<WebApplication3.Models.Areas.BookingFlow.Passenger>();
 }
 
 <h1>CONTINUAR CON TU RESERVA</h1>
@@ -12,25 +10,19 @@
 <br />
 
 <div class="row">
-    <form asp-action="ContinueReservation">
+    <form asp-action="FinalizeReservation" method="get">
         <div class="form-group row just">
             <div class="col-sm-4 form-group">
                 <label class="control-label">Nombre</label>
-                <div>
-                    <input type="text" asp-for="BookingContact.Name" required />
-                </div>
+                <input type="text" name="contactName" required />
             </div>
             <div class="col-sm-4 form-group">
                 <label class="control-label">Correo Electr&oacute;nico</label>
-                <div>
-                    <input type="email" asp-for="BookingContact.Email" required />
-                </div>
+                <input type="email" name="contactEmail" required />                
             </div>
             <div class="col-sm-4 form-group">
                 <label class="control-label">Tel&eacute;fono</label>
-                <div>
-                    <input type="number" asp-for="BookingContact.Phone" required />
-                </div>
+                <input type="number" name="contactPhone" required />
             </div>
             <div class="form-group">
                 <input type="submit" value="Finalizar Reservaci&oacute;n" class="btn btn-primary btn-sm" />
@@ -38,6 +30,8 @@
         </div>
     </form>
 </div>
+
+<br />
 
 
 <div class="row">
@@ -53,15 +47,16 @@
         <div class="col-md-1 form-group">
             <input type="button" value="A&ntilde;adir pasajero" id="btnAdd" class="btn btn-primary btn-sm" />
         </div>
-        <div class="col-md-1 form-group">
-            <input type="submit" value="Eliminar Pasajero" id="btnDel" class="btn btn-primary btn-sm" />
-        </div>
     </form>
 </div>
 
-<div >
+@if (ViewBag.MessageOp != null)
+{
+    <div class="alert alert-danger text-center">
+        <p>@ViewBag.MessageOp</p>
+    </div>
+}
 
-</div>
 <div id="result">
 
 </div>
@@ -78,22 +73,15 @@
             var url = "@Url.Action("AddPassenger", "BookingFlow")";
             var name = $("#txtName").val();
             var date = $("#datBirthDate").val();
-            var data = { name: name, date: date, passengers: "@Model.RegistredPassengers" };
+            var data = { name: name, date: date };
 
             $.get(url, data).done(function (data) {
-                $("#result").append(data);
-            });
-        });
-
-        $("#btnDel").click(function (){
-
-            var url = "@Url.Action("DelPassenger", "BookingFlow")";
-            var data = { passengers : "@Model.RegistredPassengers" };
-            $.get(url, data).done(function (data) {
-                $("#passengersList").append(data)
+                $("#result").html(data);
             });
         });
     });
+
+
 
 </script>
 

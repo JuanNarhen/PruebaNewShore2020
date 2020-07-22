@@ -70,8 +70,43 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/*My css*/
+
 input[type=”number”] {
     -webkit-appearance: textfield !important;
     margin: 0;
     -moz-appearance: textfield !important;
+}
+
+.strong-txt{
+    font-weight: bold;
+}
+
+.ticket{
+    border: 1px solid black;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    padding-top: 0px;
+    background-color: lavender;
+    border-radius: 3px;
+}
+
+.ticket-header {
+    background: cornflowerblue;
+    color: white;
+    width: 1108px;
+    text-align: center;
+    line-height: 10px;
+    margin: 0px;
+    margin-left: -20px;
+    margin-right: 60px;
+    border-radius: 2px;
+}
+
+
+
+
+
+
+
 

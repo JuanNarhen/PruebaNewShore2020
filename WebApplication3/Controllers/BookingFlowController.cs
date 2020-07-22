@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace WebApplication3.Controllers
 {
     public class BookingFlowController : Controller
     {
+        private static ReservationViewModel _bookingInfo;
 
         [HttpGet]
         public IActionResult Index ()
@@ -41,33 +43,54 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public IActionResult ContinueReservation (string departure, 
             string arrival, 
-            DateTime departureDate)
+            DateTime departureDate,
+            int number,
+            float price,
+            string currency)
         {
-            ReservationViewModel bookingInfo = new ReservationViewModel
+
+            _bookingInfo = new ReservationViewModel
             {
-                SelectedArrival = arrival,
-                SelectedDeparture = departure,
-                SeletedDate = departureDate,
+                SelectedFlight = new Flight()
+                {
+                    ArrivalStation = arrival,
+                    DepartureStation = departure,
+                    DepartureDate = departureDate,
+                    FlightNumber = number,
+                    Price = price,
+                    Currency = currency
+                },
                 RegistredPassengers = new List<Passenger>()
             };
 
-            return View(bookingInfo);
+            return View(_bookingInfo);
         }
 
         [HttpGet]
-        public PartialViewResult AddPassenger(string name, DateTime date, List<Passenger> passengers)
+        public PartialViewResult AddPassenger(string name, DateTime date)
         {
-            passengers.Add(new Passenger { Name = name, BirthDate = date });
-            return PartialView("_SeePassenger", passengers);
+
+            _bookingInfo.RegistredPassengers.Add(new Passenger { Name = name, BirthDate = date });
+
+            return PartialView("_SeePassenger",_bookingInfo.RegistredPassengers);
+
         }
 
         [HttpGet]
-        public PartialViewResult DelPassenger(List<Passenger> passengers)
+        public IActionResult FinalizeReservation(string contactName, string contactEmail, string contactPhone)
         {
-            int lastPassenger = passengers.Count() - 1;
-            passengers.RemoveAt(lastPassenger);
-            return PartialView("_SeePassenger", passengers);
+            Booking madeBooking = new Booking()
+            {
+                BookingContact = new Contact
+                {
+                    Name = contactName,
+                    Email = contactEmail,
+                    Phone = contactPhone
+                },
+                Passengers = _bookingInfo.RegistredPassengers,
+                BookingFlight = _bookingInfo.SelectedFlight,
+            };
+            return View(madeBooking);
         }
-       
     }
 }

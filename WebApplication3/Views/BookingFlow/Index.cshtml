@@ -80,7 +80,10 @@
                                 {
                                     { "departure", i.DepartureStation },
                                     { "arrival", i.ArrivalStation },
-                                    { "departureDate", i.DepartureDate.ToString("yyyy-MM-dd HH:mm:ss") }
+                                    { "departureDate", i.DepartureDate.ToString("yyyy-MM-dd HH:mm:ss") },
+                                    { "number", i.FlightNumber.ToString() },
+                                    { "price" , i.Price.ToString() },
+                                    { "currency" , i.Currency }
                                 };
                             }
                             <a asp-action="ContinueReservation" asp-all-route-data="parms">Continuar</a>

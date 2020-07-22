@@ -1,0 +1,113 @@
+﻿@model WebApplication3.Models.Areas.BookingFlow.Booking
+
+@{
+    ViewData["Title"] = "FinalizeReservation";
+}
+
+<h1>Datos de reserva</h1>
+
+<br />
+<hr />
+<br />
+
+<h4>Realizó la reserva:</h4>
+
+<div class="ticket">
+    <div class="ticket-header">
+        <h5>PASE DE ABORDAJE</h5>
+    </div>
+    <h5>Datos de contacto:</h5>
+    <p><span class="strong-txt">Nombre: </span> @Model.BookingContact.Name</p>
+    <p><span class="strong-txt">Tel&eacute;fono: </span>@Model.BookingContact.Phone.ToString()</p>
+    <p><span class="strong-txt">E-mail: </span>@Model.BookingContact.Email</p>
+
+    <hr />
+
+    <h5>Datos de vuelo:</h5>
+
+    <span class="strong-txt">Fecha de partida:</span>
+    <p>@Model.BookingFlight.DepartureDate.ToString("yyyy/MM/dd HH:mm")</p>
+
+    <span class="strong-txt">Ciudad de origen:</span>
+    <p>@Model.BookingFlight.DepartureStation</p>
+
+    <span class="strong-txt">Ciudad de destino:</span>
+    <p>@Model.BookingFlight.ArrivalStation</p>
+
+    <aside>
+        <span class="strong-txt">C&oacute;digo de reserva:</span>
+        <p>@Model.Code</p>
+    </aside>
+</div>
+
+<br />
+
+<h4>Pasajeros incluidos en la reserva:</h4>
+
+@foreach (var i in Model.Passengers)
+{
+    <br />
+
+    <div class="ticket">
+        <div class="ticket-header">
+            <h5>PASE DE ABORDAJE</h5>
+        </div>
+        <h5>Datos del pasajero:</h5>
+        <p><span class="strong-txt">Nombre: </span> @i.Name</p>
+
+        <hr />
+
+        <h5>Datos de vuelo:</h5>
+
+        <span class="strong-txt">Fecha de partida:</span>
+        <p>@Model.BookingFlight.DepartureDate.ToString("yyyy/MM/dd HH:mm")</p>
+
+        <span class="strong-txt">Ciudad de origen:</span>
+        <p>@Model.BookingFlight.DepartureStation</p>
+
+        <span class="strong-txt">Ciudad de destino:</span>
+        <p>@Model.BookingFlight.ArrivalStation</p>
+
+        <aside>
+            <span class="strong-txt">C&oacute;digo de reserva:</span>
+            <p>@Model.Code</p>
+        </aside>
+    </div>
+
+    @*<div>
+            <div>
+                <div>
+                    <p><strong>Nombre: </strong>@i.Name</p>
+                </div>
+                <div>
+                    <strong>Fecha de partida:</strong>
+                    <p>@Model.BookingFlight.DepartureDate.ToString("yyyy/MM/dd HH:mm")</p>
+                </div>
+                <div>
+                    <strong>Ciudad de origen:</strong>
+                    <p>@Model.BookingFlight.DepartureStation</p>
+                </div>
+                <div>
+                    <strong>Ciudad de destino:</strong>
+                    <p>@Model.BookingFlight.ArrivalStation</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <strong>C&oacute;digo:</strong>
+                    <p>@Model.Code</p>
+                </div>
+            </div>
+        </div>*@
+}
+
+<br />
+<div class="row">
+    <div class="col-1">
+        <input type="button" value="Finalizar" class="btn btn-primary btn-sm" />
+    </div>
+    <div class="col-1">
+        <input type="button" value="Cancelar" class="btn btn-primary btn-sm" />
+    </div>
+</div>
+

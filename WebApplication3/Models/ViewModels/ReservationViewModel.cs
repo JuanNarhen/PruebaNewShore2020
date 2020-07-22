@@ -9,11 +9,9 @@ namespace WebApplication3.Models.ViewModels
 {
     public class ReservationViewModel
     {
-        public Contact BookingContact { get; set; }
+
         public List<Passenger> RegistredPassengers { get; set; }
-        public string SelectedArrival { get; set; }
-        public string SelectedDeparture { get; set; }
-        public DateTime SeletedDate { get; set; }
+        public Flight SelectedFlight { get; set; }
 
     }
 }
