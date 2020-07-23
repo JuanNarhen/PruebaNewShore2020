@@ -12,18 +12,25 @@ namespace WebApplication3.Data
 {
     public class ApiFlight:IApi
     {
-        public dynamic Post(string url, string json, string autorizacion = null)
+        // This method allows to do a POST type request to an API, and return an Dynamic tyep object
+        // with the result.
+        // Parameters: 'url':The API url.
+        // 'json': The json string with the input data.
+        // 'authorization': (Optional) When the API requires an authentication token you must input it.
+        public dynamic Post(string url, string json, string authorization = null)
         {
             try
             {
                 var client = new RestClient(url);
                 var request = new RestRequest(Method.POST);
+                request.Timeout = 30000;
+
                 request.AddHeader("content-type", "application/json");
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
 
-                if (autorizacion != null)
+                if (authorization != null)
                 {
-                    request.AddHeader("Authorization", autorizacion);
+                    request.AddHeader("Authorization", authorization);
                 }
 
                 IRestResponse response = client.Execute(request);

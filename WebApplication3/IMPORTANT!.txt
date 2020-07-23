@@ -35,7 +35,24 @@
 	4. Verifique en el "Microsoft SQL Server Management Studio" o en el "explorador de objetos de SQL Server" en visual
 		studio que las tablas fueron creadas en la base de datos.
 
-AQUÍ PODRÁ ENCONTRAR DETALLES SOBRE LA APLICACÓN, EL CÓDIGO Y LA BASE DE DATOS, PERO LOS EJEMPLOS MANUALES LOS ENCONTRARÁ
-EN EL ARCHIVO "README.MD" EN EL REPOSITORIO ALOJADO GITHUB QUE CONTIENE ESTA APLICACIÓN.
+Al momento de ejecutar:
 
-ESTE ARCHIVO SE AÑADIÓ EN CASO DE QUE EL "README.MD" PRESENTE FALLAS.
+	1. El proceso de reserva va en el mismo orden que se indica en los requerimientos y en los casos de uso.
+	2. Existen datos obligatorios que deben ser ingresados.
+	3. El código de la reserva es generado automáticamente en el modelo "Booking".
+
+Todos los requerimientos del proyecto (4) fueron completados.
+
+No se pudo cumplir con lo siguiente:
+
+	- Logging en la aplicación.
+	- Test Unitarios y de integración.
+	- Git Advanced.
+	- Inyeccion de dependencias (usando los frameworks establecidos).
+	- Desconozco si cumplí a cabalidad con los principios KISS, DRY, YAGNI y SOLID. 
+	- Base de datos SQL Server (No realicé código sql ni construí las tablas de forma manual, puesto que el 
+		EntityFramework se encargó de esta tarea empleando la funcionalidad "Code first").
+	- Validación de datos de entrada.
+	- Ingreso obligatorio de pasajeros.
+
+

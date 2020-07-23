@@ -8,22 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication3.Data
 {
+    // This is the database connection class
     public class AppDbContext : DbContext
     {
+        // Default constructor with database options.
         public AppDbContext(DbContextOptions<AppDbContext> options) :
             base(options)
         {
         }
 
+        // Acces objects for database tables.
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite("Data Source=blogging.db");
-        //}
 
     }
 }

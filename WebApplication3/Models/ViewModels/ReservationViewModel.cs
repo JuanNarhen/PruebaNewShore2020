@@ -9,7 +9,8 @@ namespace WebApplication3.Models.ViewModels
 {
     public class ReservationViewModel
     {
-
+        // This model was created to save the booking data provided by an user, 
+        // while he is doing the booking process.
         public List<Passenger> RegistredPassengers { get; set; }
         public Flight SelectedFlight { get; set; }
         public Booking finalBooking { get; set; }

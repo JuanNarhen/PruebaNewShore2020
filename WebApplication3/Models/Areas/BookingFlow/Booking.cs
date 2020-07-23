@@ -13,13 +13,18 @@ namespace WebApplication3.Models.Areas.BookingFlow
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         public string Code { get; set; }
+
+        // The property "ContactId" links the booking´s contact in the database
         public int ContactId { get; set; }
+
+        // The property "FlightId" links the booking´s flight in the database
         public int FlightId { get; set; }
 
         public virtual ICollection<Passenger> Passengers { get; set; }
         public virtual Contact Contact { get; set; }
         public virtual Flight Flight { get; set; }
 
+        //Method for generate a random code for the booking
         public string GenerateCode()
         {
             StringBuilder genCode = new StringBuilder();
@@ -38,25 +43,16 @@ namespace WebApplication3.Models.Areas.BookingFlow
             return genCode.ToString();
         }
 
+        //This empty constructor is for the entity framework, to build the objects in a query
         public Booking()
         {
 
         }
+
+        //This constructor is for to generate a new booking with its own code created.
         public Booking(bool generateCode)
         {
             this.Code = GenerateCode();
         }
-        //public Booking(string contactName, string contactEmail, string contactPhone, 
-        //    List<Passenger> passengers, Flight selectedFlight)
-        //{
-        //    Contact = new Contact
-        //    {
-        //        Name = contactName,
-        //        Email = contactEmail,
-        //        Phone = contactPhone
-        //    };
-        //    Passengers = passengers;
-        //    Flight = selectedFlight;
-        //}
     }
 }

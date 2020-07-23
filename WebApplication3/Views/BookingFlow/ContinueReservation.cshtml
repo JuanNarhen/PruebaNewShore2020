@@ -3,28 +3,31 @@
     ViewData["Title"] = "ContinueReservation";
 }
 
-<h1>CONTINUAR CON TU RESERVA</h1>
+<div class="back-img">
+
+</div>
+<h1 class="text-center">CONTINUAR CON TU RESERVA</h1>
 
 <br />
 <hr />
 <br />
 
-<div class="row">
+<div class="row justify-content-center">
     <form asp-action="FinalizeReservation" method="get">
-        <div class="form-group row just">
+        <div class="form-group row justify-content-center">
             <div class="col-sm-4 form-group">
-                <label class="control-label">Nombre</label>
-                <input type="text" name="contactName" required />
+                Nombre:
+                <input type="text" name="contactName" class="form-control" required />
             </div>
             <div class="col-sm-4 form-group">
-                <label class="control-label">Correo Electr&oacute;nico</label>
-                <input type="email" name="contactEmail" required />                
+                Correo Electr&oacute;nico:
+                <input type="email" name="contactEmail" class="form-control" required />
             </div>
             <div class="col-sm-4 form-group">
-                <label class="control-label">Tel&eacute;fono</label>
-                <input type="number" name="contactPhone" required />
+                Tel&eacute;fono:
+                <input type="number" name="contactPhone" class="form-control" required />
             </div>
-            <div class="form-group">
+            <div class="form-group text-center">
                 <input type="submit" value="Finalizar Reservaci&oacute;n" class="btn btn-primary btn-sm" />
             </div>
         </div>
@@ -32,19 +35,22 @@
 </div>
 
 <br />
+<hr />
+<br />
 
-
-<div class="row">
+<div class="row justify-content-center">
     <form id="formPassenger">
-        <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" id="txtName"/>
+        <div class="form-group row justify-content-center">
+            <div class="col form-group">
+                Nombre:
+                <input type="text" id="txtName" class="form-control" />
+            </div>
+            <div class="col form-group">
+                Fecha de Nacimiento:
+                <input type="date" id="datBirthDate" class="form-control" />
+            </div>
         </div>
-        <div class="form-group">
-            <label>Fecha de Nacimiento</label>
-            <input type="date" id="datBirthDate"/>
-        </div>
-        <div class="col-md-1 form-group">
+        <div class="col form-group text-center">
             <input type="button" value="A&ntilde;adir pasajero" id="btnAdd" class="btn btn-primary btn-sm" />
         </div>
     </form>
@@ -61,28 +67,26 @@
 
 </div>
 
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
 
+        $(function () {
+            $("#btnAdd").click(function (){
 
+                var url = "@Url.Action("AddPassenger", "BookingFlow")";
+                var name = $("#txtName").val();
+                var date = $("#datBirthDate").val();
+                var data = { name: name, date: date };
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript">
-
-    $(function () {
-        $("#btnAdd").click(function (){
-
-            var url = "@Url.Action("AddPassenger", "BookingFlow")";
-            var name = $("#txtName").val();
-            var date = $("#datBirthDate").val();
-            var data = { name: name, date: date };
-
-            $.get(url, data).done(function (data) {
-                $("#result").html(data);
+                $.get(url, data).done(function (data) {
+                    $("#result").html(data);
+                });
             });
         });
-    });
 
+    </script>
+}
 
-
-</script>
 
 

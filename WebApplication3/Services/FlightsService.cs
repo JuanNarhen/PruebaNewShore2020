@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,6 +16,8 @@ namespace WebApplication3.Services
 {
     public class FlightsService
     {
+        // This service class is used to search the avaible flights in the api
+        // (http://testapi.vivaair.com/otatest/api/values).
 
         private string _apiConnectString;
 
@@ -23,6 +26,9 @@ namespace WebApplication3.Services
             this._apiConnectString = apiConn;
         }
 
+        // This method creates the json string with the query data.
+        // It receives the filters to search from the view-model and put the data into
+        // FiltersJsonObject. This last object is serialized as a Json string.
         private string PrepareJson (SearchFlightsViewModel filters, FiltersJsonObject queryApiJson)
         {
             queryApiJson.Destination = filters.Destination;
@@ -34,6 +40,8 @@ namespace WebApplication3.Services
             return jsonFilters;
         }
 
+        // This method search the avaible flights in the avaible flights in the api an convert
+        // the result (Json string) in a list of flights.
         private List<Flight> GetFlights (dynamic jsonResult)
         {
             List<Flight> flights = new List<Flight>();
@@ -48,6 +56,8 @@ namespace WebApplication3.Services
             return flights;
         }
 
+        // This is the principal method. It uses the two previous methods for search avaible flights in the api,
+        // and if it finds return a list of flights, but if it doesn´t find any flight it throws a exception.
         public List<Flight> SearchFlights (SearchFlightsViewModel filters, 
             FiltersJsonObject queryApiJson, 
             IApi apiDb)
@@ -58,11 +68,21 @@ namespace WebApplication3.Services
             if(result != null)
             {
                 List<Flight> flights = GetFlights(result);
-                return flights;
+                bool isEmptyList = flights[0] == null;
+
+                if (!isEmptyList)
+                {
+                    return flights;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                
             }
             else
             {
-                throw new Exception("There is an error with the query to API.\nIt returns a null value");
+                throw new Exception();
             }
 
         }

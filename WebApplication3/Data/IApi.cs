@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Data
 {
+    // Interface of API´s connection for dependency injection
     public interface IApi
     {
         public dynamic Post(string url, string json, string autorizacion = null);

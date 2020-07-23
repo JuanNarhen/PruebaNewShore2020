@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Data
 {
+    // Model with filters to search the avaible flights
     public class FiltersJsonObject
     {
         public string Origin { get; set; }

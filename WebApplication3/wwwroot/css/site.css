@@ -103,6 +103,17 @@ input[type=”number”] {
     border-radius: 2px;
 }
 
+#fondo {
+    background-image: linear-gradient( rgba(200, 200, 200, 0.5), rgba(200, 200, 200, 0.5) ),url("../img/img.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+
+    
+
 
 
 
