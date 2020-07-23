@@ -97,6 +97,15 @@
 
 @if(ViewBag.Exception != null)
 {
-    <label class="text-danger text">@ViewBag.Exception</label>
+    <div class="text-danger">
+        @ViewBag.Exception
+    </div>
+}
+
+@if(ViewBag.SaveError != null)
+{
+    <div class="text-danger">
+        @ViewBag.SaveError
+    </div>
 }
 

@@ -12,6 +12,7 @@ namespace WebApplication3.Models.ViewModels
 
         public List<Passenger> RegistredPassengers { get; set; }
         public Flight SelectedFlight { get; set; }
+        public Booking finalBooking { get; set; }
 
     }
 }

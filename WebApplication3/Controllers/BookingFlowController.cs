@@ -14,7 +14,13 @@ namespace WebApplication3.Controllers
 {
     public class BookingFlowController : Controller
     {
+        private AppDbContext _dbConn;
         private static ReservationViewModel _bookingInfo;
+
+        public BookingFlowController(AppDbContext dbConn)
+        {
+            this._dbConn = dbConn;
+        }
 
         [HttpGet]
         public IActionResult Index ()
@@ -79,18 +85,37 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public IActionResult FinalizeReservation(string contactName, string contactEmail, string contactPhone)
         {
-            Booking madeBooking = new Booking()
+            Booking madeBooking = new Booking(true)
             {
-                BookingContact = new Contact
+                Contact = new Contact
                 {
                     Name = contactName,
                     Email = contactEmail,
                     Phone = contactPhone
                 },
                 Passengers = _bookingInfo.RegistredPassengers,
-                BookingFlight = _bookingInfo.SelectedFlight,
+                Flight = _bookingInfo.SelectedFlight,
             };
+
+            _bookingInfo.finalBooking = madeBooking;
+
             return View(madeBooking);
+        }
+
+        [HttpGet]
+        public IActionResult SaveReservation()
+        {
+            //try
+            //{
+                this._dbConn.Bookings.Add(_bookingInfo.finalBooking);
+                this._dbConn.SaveChanges();
+                return View("Index");
+            //}
+            //catch (Exception e)
+            //{
+            //    ViewBag.SaveError = e.Message + "\n" + e.StackTrace + "\n";
+            //    return View("Index");
+            //}
         }
     }
 }
