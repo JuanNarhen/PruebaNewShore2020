@@ -11,7 +11,7 @@ using WebApplication3.EntityLayer.ViewModels;
 
 namespace WebApplication3.DataLayer.DataAcces
 {
-    public class ApiAccess
+    public class ApiAccess : IApiAccess
     {
         private IApi _apiConn;
 

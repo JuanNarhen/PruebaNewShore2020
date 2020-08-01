@@ -38,17 +38,17 @@ namespace WebApplication3
             
             // DI for the class ApiFlight
 
-            services.AddTransient<IApi, ApiFlight>();
+            services.AddScoped<IApi, ApiFlight>();
 
             // DI for the access data classes
 
-            services.AddTransient<ApiAcces>();
-            services.AddTransient<DBAcces>();
+            services.AddScoped<IApiAccess, ApiAccess>();
+            services.AddScoped<IDBAccess, DBAccess >();
 
             // DI for the BL Layer classes
 
-            services.AddTransient<BookingBL>();
-            services.AddTransient<FlightBL>();
+            services.AddScoped<IBookingBL, BookingBL>();
+            services.AddScoped<IFlightBL, FlightBL>();
 
         }
 

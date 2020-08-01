@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +14,10 @@ namespace WebApplication3.ControllerLayer
     public class BookingFlowController : Controller
     {
         private static ReservationViewModel _bookingInfo;
-        private BookingBL _bookingBL;
-        private FlightBL _flightBL;
+        private IBookingBL _bookingBL;
+        private IFlightBL _flightBL;
 
-        public BookingFlowController(BookingBL bookingBL, FlightBL flightBL)
+        public BookingFlowController(IBookingBL bookingBL, IFlightBL flightBL)
         {
             this._bookingBL = bookingBL;
             this._flightBL = flightBL;
@@ -80,7 +79,6 @@ namespace WebApplication3.ControllerLayer
         [HttpGet]
         public PartialViewResult AddPassenger(string name, DateTime date)
         {
-            //_bookingInfo.RegistredPassengers.Add(new Passenger { Name = name, BirthDate = date });
             this._bookingBL.AddPassengerToBooking(name, date, _bookingInfo);
 
             return PartialView("_SeePassenger",_bookingInfo.RegistredPassengers);

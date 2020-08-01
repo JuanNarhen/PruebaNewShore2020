@@ -7,11 +7,11 @@ using WebApplication3.EntityLayer.Areas.BookingFlow;
 
 namespace WebApplication3.DataLayer.DataAcces
 {
-    public class DBAcces
+    public class DBAccess : IDBAccess
     {
         private AppDbContext _dbConn;
 
-        public DBAcces(AppDbContext conn)
+        public DBAccess(AppDbContext conn)
         {
             this._dbConn = conn;
         }

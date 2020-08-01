@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using WebApplication3.DataLayer.Api;
 using WebApplication3.DataLayer.DataAcces;
 using WebApplication3.EntityLayer.Areas.BookingFlow;
+//using WebApplication3.DataLayer.DataAcces;
 using WebApplication3.EntityLayer.ViewModels;
 
 namespace WebApplication3.BusinessLayer
 {
-    public class BookingBL
+    public class BookingBL : IBookingBL
     {
-        private DBAcces _dbConn;
+        private IDBAccess _dbConn;
 
-        public BookingBL(DBAcces connDb)
+        public BookingBL(IDBAccess connDb)
         {
             this._dbConn = connDb;
         }

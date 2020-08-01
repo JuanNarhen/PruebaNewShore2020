@@ -10,11 +10,11 @@ using WebApplication3.EntityLayer.ViewModels;
 
 namespace WebApplication3.BusinessLayer
 {
-    public class FlightBL
+    public class FlightBL : IFlightBL
     {
-        private ApiAccess _apiConn;
+        private IApiAccess _apiConn;
 
-        public FlightBL(ApiAccess connApi)
+        public FlightBL(IApiAccess connApi)
         {
             this._apiConn = connApi;
             this._apiConn.ApiUrl = "http://testapi.vivaair.com/otatest/api/values";
