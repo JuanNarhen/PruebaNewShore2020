@@ -29,9 +29,9 @@
 	Teniendo en cuenta lo anterior, para crear la base de datos debe:
 
 	1. Cree una base de datos vacía en el motor de sql server. El nombre de la base de datos debe ser "pruebanewshore2020db".
-	1. Crear una migración ejecutando el comando "Add-Migration" en la consola del administrador de paquetes nuget.
+	1. Crear una migración ejecutando el comando "EntityFrameworkCore\Add-Migration" en la consola del administrador de paquetes nuget.
 	2. Si se lo solicita ingrese un nombre para la migración.
-	3. Ejecute el comando "Update-Database" en la consola del administrador de paquetes nuget.
+	3. Ejecute el comando "EntityFrameworkCore\Update-Database" en la consola del administrador de paquetes nuget.
 	4. Verifique en el "Microsoft SQL Server Management Studio" o en el "explorador de objetos de SQL Server" en visual
 		studio que las tablas fueron creadas en la base de datos.
 
@@ -56,3 +56,32 @@ No se pudo cumplir con lo siguiente:
 	- Ingreso obligatorio de pasajeros.
 
 
+ACTUALIZACIÓN:
+
+- Se debe borrar y crear nuevamente la base de datos siguiendo los pasos indicados anteriormente.
+	Esto debido a que se realizó una modificacion estructural en una de las entidades (Flight).
+
+- Se modificó la aplicación a n capas, empleando 5 capas establecidas en el siguiente orden, desde la
+	más profunda hasta la superior:
+
+	1. EntityLayer (Contiene las entidades y los modelos).
+	2. DataLayer (Contiene las conexiones al Api y la base de datos y provee de acceso a sus funcionalidades.)
+	3. BusinessLayer (Contiene la logica del negocio separada por reservas y vuelos.)
+	4. ControllerLayer (Contiene los controles que ejecutan las funcionalidades de BusinessLayer y retorna las vistas).
+	5. Views (Es la capa de representación. No se cambió su nombre para evitar problemas con las convenciones de mvc
+		del framework).
+
+	La capa más dependiente de todas es EntityLayer, y todas las capas superiores hacen uso de ella.
+	Las otras capas solamente consumen recursos de la capa directamente inferior (con excepción de EntityLayer, 
+	que todas las capas superiores usan).
+
+- Se inyectaron dependencias para la comunicación entre capas utilizando el IoC que ofrece el framework de .NET CORE
+	siempre y cuando fué posible, excepto para las entidades porque estas no se deben inyectar.
+
+- Es importante que tenga en cuenta la parte del documento comprendida antes de ACTUALIZACIÓN, pues allí se encuentran
+	las instrucciones de ejecución de la aplicación y de creacion de la base de datos.
+
+Se cumplió a cabalidad con las siguientes exigencias:
+
+- Aplicar separación por capas.
+- Aplicar el principio SOLID en la "S" (Single Responsibility Principle).

@@ -18,9 +18,22 @@ namespace WebApplication3.DataLayer.DataAcces
 
         #region Flight
 
-        public bool FlightExists(Flight flight)
+        public int SearchFlight(Flight flight)
         {
-            return this._dbConn.Flights.Contains(flight);
+            var result =
+                this._dbConn.Flights.FirstOrDefault(f =>
+                    f.DepartureStation == flight.DepartureStation &&
+                    f.ArrivalStation == flight.ArrivalStation &&
+                    f.DepartureDate == flight.DepartureDate &&
+                    f.FlightNumber == flight.FlightNumber
+                );
+
+            if(result != null)
+            {
+                return result.ID;
+            }
+
+            return 0;
         }
 
         #endregion

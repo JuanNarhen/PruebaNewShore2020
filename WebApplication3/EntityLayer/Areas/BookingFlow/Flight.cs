@@ -10,6 +10,8 @@ namespace WebApplication3.EntityLayer.Areas.BookingFlow
 {
     public class Flight
     {
+
+
         public int ID { get; set; }
         public string DepartureStation { get; set; }
         public string ArrivalStation { get; set; }
@@ -17,26 +19,6 @@ namespace WebApplication3.EntityLayer.Areas.BookingFlow
         public int FlightNumber { get; set; }
         public float Price { get; set; }
         public string Currency { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            try
-            {
-                var fobj = (Flight)obj;
-
-                bool equals =
-                    this.DepartureStation == fobj.DepartureStation &&
-                    this.ArrivalStation == fobj.ArrivalStation &&
-                    this.DepartureDate == fobj.DepartureDate &&
-                    this.FlightNumber == fobj.FlightNumber;
-
-                return equals;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        }
 
     }
 }

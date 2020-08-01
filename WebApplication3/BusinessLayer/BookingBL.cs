@@ -61,17 +61,17 @@ namespace WebApplication3.BusinessLayer
             {
                 // Verify if the flight exists in database for to avoid errors on repeated flights,
                 // because the flight's table can not have the same two flights.. 
-                
-                bool exists = this._dbConn.FlightExists(bookingInfo.SelectedFlight);
 
-                if (!exists)
+                int flight = this._dbConn.SearchFlight(bookingInfo.SelectedFlight);
+
+                if (flight != 0)
                 {
-                    SaveWithFlight(bookingInfo);
+                    SaveWithoutFlight(bookingInfo, flight);
                     return true;
                 }
                 else
                 {
-                    SaveWithoutFlight(bookingInfo);
+                    SaveWithFlight(bookingInfo);
                     return true;
                 }
             }
@@ -88,9 +88,9 @@ namespace WebApplication3.BusinessLayer
         }
 
         // Save booking with existent flight
-        private void SaveWithoutFlight(ReservationViewModel bookingInfo)
+        private void SaveWithoutFlight(ReservationViewModel bookingInfo, int flightId)
         {
-            bookingInfo.finalBooking.FlightId = bookingInfo.SelectedFlight.FlightNumber;
+            bookingInfo.finalBooking.FlightId = flightId;
             bookingInfo.finalBooking.Flight = null;
             this._dbConn.SaveBooking(bookingInfo.finalBooking);
         }

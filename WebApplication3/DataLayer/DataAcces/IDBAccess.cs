@@ -8,9 +8,9 @@ namespace WebApplication3.DataLayer.DataAcces
 {
     public interface IDBAccess
     {
-        public bool FlightExists(Flight flight);
         public bool SaveBooking(Booking booking);
         public Booking FindBooking(string bookingCode);
+        public int SearchFlight(Flight flight);
 
     }
 }

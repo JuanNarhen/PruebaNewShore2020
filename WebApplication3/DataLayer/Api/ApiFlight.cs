@@ -39,7 +39,7 @@ namespace WebApplication3.DataLayer.Api
 
                 return datos;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return null;
             }
