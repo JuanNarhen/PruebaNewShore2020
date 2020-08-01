@@ -17,3 +17,8 @@ Para buscar una reserva:
 
 1. Una vez en la pagina de consulta ingrese el codigo de la reserva (es sensible a mayúsculas y minúsculas).
 2. Haga click en buscar.
+
+ACTUALIZACIÓN:
+
+Para entender mejor los cambios que sufrió la aplicación y como estos la afcetan se debe leer el apartado de "ACTUALIZACIÓN" en el 
+archivo de texto contenido en la solucion llamado "IMPORTANT!".
