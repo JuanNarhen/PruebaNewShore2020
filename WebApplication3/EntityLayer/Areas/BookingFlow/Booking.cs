@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Models.Areas.BookingFlow
+namespace WebApplication3.EntityLayer.Areas.BookingFlow
 {
     public class Booking
     {

@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace WebApplication3.Data
+namespace WebApplication3.DataLayer.Api
 {
     public class ApiFlight:IApi
     {

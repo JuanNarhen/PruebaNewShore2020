@@ -1,35 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication3.Data;
-using WebApplication3.Models;
-using WebApplication3.Models.Areas.BookingFlow;
-using WebApplication3.Models.ViewModels;
+using WebApplication3.DataLayer.Api;
+using WebApplication3.EntityLayer.Areas.BookingFlow;
+using WebApplication3.EntityLayer.ViewModels;
 
-namespace WebApplication3.Services
+namespace WebApplication3.DataLayer.DataAcces
 {
-    public class FlightsService
+    public class ApiAccess
     {
-        // This service class is used to search the avaible flights in the api
-        // (http://testapi.vivaair.com/otatest/api/values).
+        private IApi _apiConn;
 
-        private string _apiConnectString;
+        // the deafualt url is (http://testapi.vivaair.com/otatest/api/values) for avaible flights
+        public string ApiUrl { get; set; }
 
-        public FlightsService (string apiConn)
+        public ApiAccess(IApi conn)
         {
-            this._apiConnectString = apiConn;
+            this._apiConn = conn;
         }
+
+        #region Flight
 
         // This method creates the json string with the query data.
         // It receives the filters to search from the view-model and put the data into
         // FiltersJsonObject. This last object is serialized as a Json string.
-        private string PrepareJson (SearchFlightsViewModel filters, FiltersJsonObject queryApiJson)
+        private string PrepareJson(SearchFlightsViewModel filters, FiltersJsonObject queryApiJson)
         {
             queryApiJson.Destination = filters.Destination;
             queryApiJson.Origin = filters.Origin;
@@ -42,7 +41,7 @@ namespace WebApplication3.Services
 
         // This method search the avaible flights in the avaible flights in the api an convert
         // the result (Json string) in a list of flights.
-        private List<Flight> GetFlights (dynamic jsonResult)
+        private List<Flight> GetFlights(dynamic jsonResult)
         {
             List<Flight> flights = new List<Flight>();
             Object[] jsonArray = JsonConvert.DeserializeObject<Object[]>(jsonResult);
@@ -58,16 +57,16 @@ namespace WebApplication3.Services
 
         // This is the principal method. It uses the two previous methods for search avaible flights in the api,
         // and if it finds return a list of flights, but if it doesn´t find any flight it throws a exception.
-        public List<Flight> SearchFlights (SearchFlightsViewModel filters, 
-            FiltersJsonObject queryApiJson, 
-            IApi apiDb)
+        public List<Flight> SearchFlights(SearchFlightsViewModel filters,
+            FiltersJsonObject queryApiJson)
         {
             var jsonFilters = PrepareJson(filters, queryApiJson);
-            dynamic result = apiDb.Post(this._apiConnectString, jsonFilters);
+            dynamic result = this._apiConn.Post(this.ApiUrl, jsonFilters);
+            List<Flight> flights = null;
 
-            if(result != null)
+            if (result != null)
             {
-                List<Flight> flights = GetFlights(result);
+                flights = GetFlights(result);
                 bool isEmptyList = flights[0] == null;
 
                 if (!isEmptyList)
@@ -76,16 +75,13 @@ namespace WebApplication3.Services
                 }
                 else
                 {
-                    throw new Exception();
+                    flights = null;
                 }
-                
-            }
-            else
-            {
-                throw new Exception();
             }
 
+            return flights;
         }
 
+        #endregion
     }
 }

@@ -14,7 +14,7 @@
 	de boostrap para las vistas. El css fué desarrollado por mí se encuentra en el archivo "site.css", después del comentario
 	"My css"; las clases allí contenidas se emplearon para el diseño de los tiquetes.
 
-- Para la creacion y consulta de la base de datos se usó Entity Framewrok y su funcionalidad "code first". En algunos modelos
+- Para la creación y consulta de la base de datos se usó Entity Framewrok y su funcionalidad "code first". En algunos modelos
 	se agregó una propiedad "Id" para que sriviera de primary key.
 	* Para la conexión con la base de datos se debe tener en cuenta la cadena de conexión "TestDb" perteneciente al elemento 
 		"ConnectionStrings" contenido en el archivo "appsettings.json". Si en su base de datos requiere de usuario y contraseña

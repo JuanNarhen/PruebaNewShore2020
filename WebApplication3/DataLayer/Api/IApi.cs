@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Data
+namespace WebApplication3.DataLayer.Api
 {
     // Interface of API´s connection for dependency injection
     public interface IApi

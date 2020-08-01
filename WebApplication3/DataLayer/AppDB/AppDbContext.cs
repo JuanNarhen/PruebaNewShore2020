@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication3.Models.Areas.BookingFlow;
+using WebApplication3.EntityLayer.Areas.BookingFlow;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication3.Data
+namespace WebApplication3.DataLayer.AppDB
 {
     // This is the database connection class
     public class AppDbContext : DbContext

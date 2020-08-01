@@ -9,8 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebApplication3.Data;
-
+using Microsoft.Extensions.Options;
+using WebApplication3.DataLayer.AppDB;
+using WebApplication3.DataLayer.Api;
+using WebApplication3.DataLayer.DataAcces;
+using WebApplication3.BusinessLayer;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WebApplication3
 {
@@ -31,6 +35,20 @@ namespace WebApplication3
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TestDb"))
                 );
+            
+            // DI for the class ApiFlight
+
+            services.AddTransient<IApi, ApiFlight>();
+
+            // DI for the access data classes
+
+            services.AddTransient<ApiAcces>();
+            services.AddTransient<DBAcces>();
+
+            // DI for the BL Layer classes
+
+            services.AddTransient<BookingBL>();
+            services.AddTransient<FlightBL>();
 
         }
 

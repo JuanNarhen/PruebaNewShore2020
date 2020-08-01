@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Models.Areas.BookingFlow
+namespace WebApplication3.EntityLayer.Areas.BookingFlow
 {
     public interface IPerson
     {

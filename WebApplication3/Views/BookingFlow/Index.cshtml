@@ -1,4 +1,4 @@
-﻿@model WebApplication3.Models.ViewModels.SearchFlightsViewModel
+﻿@model WebApplication3.EntityLayer.ViewModels.SearchFlightsViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -99,10 +99,10 @@
     </div>
 }
 
-@if(ViewBag.Exception != null)
+@if(ViewBag.NotAvaible != null)
 {
     <div class="alert alert-danger text-center">
-        @ViewBag.Exception
+        @ViewBag.NotAvaible
     </div>
 }
 

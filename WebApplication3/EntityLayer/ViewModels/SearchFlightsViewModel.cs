@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication3.Models.Areas.BookingFlow;
+using WebApplication3.EntityLayer.Areas.BookingFlow;
 
-namespace WebApplication3.Models.ViewModels
+namespace WebApplication3.EntityLayer.ViewModels
 {
     public class SearchFlightsViewModel
     {
